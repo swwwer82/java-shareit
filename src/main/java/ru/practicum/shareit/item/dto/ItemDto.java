@@ -1,14 +1,17 @@
 package ru.practicum.shareit.item.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import ru.practicum.shareit.groups.Group;
 
-/** TODO Sprint add-controllers. */
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
+/**
+ * TODO Sprint add-controllers.
+ */
 @Data
 @AllArgsConstructor
 @Builder

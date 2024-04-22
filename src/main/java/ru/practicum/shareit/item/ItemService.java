@@ -1,9 +1,5 @@
 package ru.practicum.shareit.item;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +10,11 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.storage.ItemStorage;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.storage.UserStorage;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

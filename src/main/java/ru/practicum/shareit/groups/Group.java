@@ -1,7 +1,9 @@
 package ru.practicum.shareit.groups;
 
 public interface Group {
-    interface OnInsert {}
+    interface OnInsert {
+    }
 
-    interface OnUpdate {}
+    interface OnUpdate {
+    }
 }

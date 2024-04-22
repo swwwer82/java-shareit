@@ -1,13 +1,14 @@
 package ru.practicum.shareit.user.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import ru.practicum.shareit.groups.Group;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Data
 @AllArgsConstructor

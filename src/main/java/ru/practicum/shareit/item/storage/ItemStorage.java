@@ -1,7 +1,8 @@
 package ru.practicum.shareit.item.storage;
 
-import java.util.List;
 import ru.practicum.shareit.item.model.Item;
+
+import java.util.List;
 
 public interface ItemStorage {
     Item insert(Item item);
