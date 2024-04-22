@@ -24,5 +24,4 @@ public class CustomException {
             super(message);
         }
     }
-
 }
