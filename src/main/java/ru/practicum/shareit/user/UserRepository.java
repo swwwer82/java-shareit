@@ -13,9 +13,9 @@ import java.util.HashMap;
 @Repository
 @Slf4j
 public class UserRepository {
+    private static Integer count = 0;
     private final HashMap<Integer, User> users = new HashMap<>();
     private final HashMap<String, Integer> emails = new HashMap<>();
-    private static Integer count = 0;
 
     public User createUser(User user) {
         if (emails.get(user.getEmail()) != null) {

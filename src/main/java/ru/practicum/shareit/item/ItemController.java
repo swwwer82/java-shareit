@@ -19,14 +19,14 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto,
-                                             @RequestHeader("X-Sharer-User-Id") int userId) {
+                                              @RequestHeader("X-Sharer-User-Id") int userId) {
         return ResponseEntity.ok().body(itemService.createItem(itemDto, userId));
     }
 
     @PatchMapping("/{itemId}")
     public ResponseEntity<ItemDto> updateItem(@PathVariable int itemId,
-                              @RequestBody ItemDto itemDto,
-                              @RequestHeader("X-Sharer-User-Id") int userId) {
+                                              @RequestBody ItemDto itemDto,
+                                              @RequestHeader("X-Sharer-User-Id") int userId) {
         return ResponseEntity.ok().body(itemService.updateItem(itemId, itemDto, userId));
     }
 

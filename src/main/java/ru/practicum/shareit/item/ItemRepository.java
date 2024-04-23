@@ -13,10 +13,10 @@ import java.util.*;
 @Slf4j
 @Repository
 public class ItemRepository {
+    private static Integer count = 0;
     private final Map<Integer, Item> items = new HashMap<>();
     @Autowired
     private ItemMapper itemMapper;
-    private static Integer count = 0;
 
     public Item createItem(Item item) {
         validateItem(item);
