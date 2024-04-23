@@ -1,31 +1,20 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import ru.practicum.shareit.groups.Group;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * TODO Sprint add-controllers.
  */
+@Component
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ItemDto {
-    @Null(groups = Group.OnInsert.class)
-    @NotNull(groups = Group.OnUpdate.class)
-    private Long id;
-
-    @NotBlank
+    private Integer id;
     private String name;
-
-    @NotBlank
     private String description;
-
-    @NotNull
     private Boolean available;
 }

@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.service.ItemService;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 /**
  * TODO Sprint add-controllers.
@@ -19,31 +18,31 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ResponseEntity<ItemDto> create(
-            @RequestHeader("X-Sharer-User-Id") Long userId, @RequestBody @Valid ItemDto itemDto) {
-        return ResponseEntity.ok().body(itemService.create(userId, itemDto));
+    public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto,
+                                             @RequestHeader("X-Sharer-User-Id") int userId) {
+        return ResponseEntity.ok().body(itemService.createItem(itemDto, userId));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<ItemDto> updateFields(
-            @RequestHeader("X-Sharer-User-Id") Long userId,
-            @PathVariable Long id,
-            @RequestBody Map<String, Object> fields) {
-        return ResponseEntity.ok().body(itemService.updateFields(userId, id, fields));
+    @PatchMapping("/{itemId}")
+    public ResponseEntity<ItemDto> updateItem(@PathVariable int itemId,
+                              @RequestBody ItemDto itemDto,
+                              @RequestHeader("X-Sharer-User-Id") int userId) {
+        return ResponseEntity.ok().body(itemService.updateItem(itemId, itemDto, userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ItemDto> findItemById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(itemService.findById(id));
+    @GetMapping("/{itemId}")
+    public ResponseEntity<ItemDto> getItem(@PathVariable int itemId) {
+        return ResponseEntity.ok().body(itemService.getItem(itemId));
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> findAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
-        return ResponseEntity.ok().body(itemService.findAllByUserId(userId));
+    public ResponseEntity<Collection<ItemDto>> getAllItems(@RequestHeader("X-Sharer-User-Id") int userId) {
+        return ResponseEntity.ok().body(itemService.getAllItems(userId));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ItemDto>> search(@RequestParam String text) {
-        return ResponseEntity.ok().body(itemService.search(text));
+    public ResponseEntity<Collection<ItemDto>> searchItems(@RequestParam(defaultValue = "") String text) {
+        return ResponseEntity.ok().body(itemService.searchItems(text));
     }
+
 }
