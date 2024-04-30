@@ -22,32 +22,32 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll() {
-        log.info("Get all users");
+        log.info("Получить всех пользователей");
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> get(@PathVariable("id") long userId) {
-        log.info("Get user by id {}", userId);
+        log.info("Получить пользователя по id {}", userId);
         return ResponseEntity.ok(userService.get(userId));
     }
 
     @PostMapping
     public ResponseEntity<UserDto> create(@Valid @RequestBody UserCreateDto user) {
-        log.info("Create user {}", user);
+        log.info("Создать пользователя {}", user);
         return ResponseEntity.ok(userService.create(user));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserDto> update(@PathVariable("id") long userId,
                                           @Valid @RequestBody UserUpdateDto user) {
-        log.info("Update user {}, data {}", user, user);
+        log.info("Обновить пользователя {}, данные {}", user, user);
         return ResponseEntity.ok(userService.update(userId, user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") long userId) {
-        log.info("Delete user by id {}", userId);
+        log.info("Удалить пользователя id {}", userId);
         userService.delete(userId);
         return ResponseEntity.noContent().build();
     }

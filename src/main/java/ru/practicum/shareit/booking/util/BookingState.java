@@ -13,6 +13,6 @@ public enum BookingState {
                 }
             }
         }
-        throw new NoSuchEnumException(String.format("Неизвестное состояние: %s", data));
+        throw new NoSuchEnumException(String.format("Unknown state: %s", data));
     }
 }

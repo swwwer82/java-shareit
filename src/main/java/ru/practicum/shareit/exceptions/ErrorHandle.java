@@ -7,12 +7,14 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareit.exceptions.exception.*;
+import ru.practicum.shareit.exceptions.exception.NoSuchEnumException;
+import ru.practicum.shareit.exceptions.exception.NotFoundException;
+import ru.practicum.shareit.exceptions.exception.NotValidRequestException;
 import ru.practicum.shareit.exceptions.model.ErrorResponse;
 
 @RestControllerAdvice
 @Slf4j
-public class ErrorHandler {
+public class ErrorHandle {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
