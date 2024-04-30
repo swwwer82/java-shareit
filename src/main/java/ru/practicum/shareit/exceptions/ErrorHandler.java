@@ -14,7 +14,7 @@ import ru.practicum.shareit.exceptions.model.ErrorResponse;
 
 @RestControllerAdvice
 @Slf4j
-public class ErrorHandle {
+public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)

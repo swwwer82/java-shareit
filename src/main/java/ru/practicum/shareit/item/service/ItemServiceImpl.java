@@ -158,7 +158,7 @@ public class ItemServiceImpl implements ItemService {
                 userId, itemId, BookingStatus.APPROVED);
 
         if (bookings.isEmpty()) {
-            throw new NotValidRequestException("Объект не доступен");
+            throw new NotValidRequestException("Объект недоступен");
         }
 
         Comment comment = commentRepository.save(commentMapper.toComment(userId, itemId, commentCreateDto));

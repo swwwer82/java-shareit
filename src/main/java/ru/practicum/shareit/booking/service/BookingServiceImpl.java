@@ -136,13 +136,13 @@ public class BookingServiceImpl implements BookingService {
 
     public void validationCreateBooking(User user, Item item, Booking booking) {
         if (!item.getAvailable()) {
-            throw new NotValidRequestException("Объект не доступен");
+            throw new NotValidRequestException("Объект недоступен");
         }
         if (!booking.getStartDate().isBefore(booking.getEndDate())) {
             throw new NotValidRequestException("Дата окончания должна быть больше даты начала");
         }
         if (item.getOwner().getId().equals(user.getId())) {
-            throw new NotFoundException("Объект не доступен");
+            throw new NotFoundException("Объект недоступен");
         }
         if (!bookingRepository.findAllIntersectionTime(item.getId(), booking.getStartDate(), booking.getEndDate()).isEmpty()) {
             throw new NotFoundException("Объект не найден");
