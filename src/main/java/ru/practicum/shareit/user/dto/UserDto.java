@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class UserDto {
-    private Integer id;
+    private Long id;
     private String name;
     private String email;
 }

@@ -1,22 +1,19 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
+import lombok.Data;
+import ru.practicum.shareit.booking.dto.BookingItemDto;
 
-/**
- * TODO Sprint add-controllers.
- */
-@Component
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.List;
+
+@Data
+@Builder
 public class ItemDto {
-    private Integer id;
+    private Long id;
     private String name;
     private String description;
-    private Boolean available;
+    private boolean available;
+    private BookingItemDto lastBooking;
+    private BookingItemDto nextBooking;
+    private List<CommentDto> comments;
 }

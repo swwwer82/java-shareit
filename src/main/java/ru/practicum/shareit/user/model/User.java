@@ -1,17 +1,22 @@
 package ru.practicum.shareit.user.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
+import lombok.experimental.SuperBuilder;
 
-/**
- * TODO Sprint add-controllers.
- */
-@Component
+import javax.persistence.*;
+
 @Getter
 @Setter
+@SuperBuilder
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
 public class User {
-    private Integer id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email;
+    private String name;
 }
