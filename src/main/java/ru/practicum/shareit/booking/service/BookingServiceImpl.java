@@ -130,11 +130,11 @@ public class BookingServiceImpl implements BookingService {
         return bookingMapper.toBookingDto(bookingList);
     }
 
-    public Booking validateFindBookingById(Long id) {
+    private Booking validateFindBookingById(Long id) {
         return bookingRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Не найдено бронирование %d", id)));
     }
 
-    public void validationCreateBooking(User user, Item item, Booking booking) {
+    private void validationCreateBooking(User user, Item item, Booking booking) {
         if (!item.getAvailable()) {
             throw new NotValidRequestException("Объект недоступен");
         }
