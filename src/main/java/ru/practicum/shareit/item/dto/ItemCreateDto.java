@@ -13,4 +13,5 @@ public class ItemCreateDto {
     private String description;
     @NotNull(message = "Статус объекта не может быть пустым")
     private Boolean available;
+    private Long requestId;
 }

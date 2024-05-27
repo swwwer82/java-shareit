@@ -11,8 +11,8 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.booking.util.BookingState;
 import ru.practicum.shareit.booking.util.BookingStatus;
-import ru.practicum.shareit.exceptions.exception.NotFoundException;
-import ru.practicum.shareit.exceptions.exception.NotValidRequestException;
+import ru.practicum.shareit.exception.exeption.NotFoundException;
+import ru.practicum.shareit.exception.exeption.NotValidRequestException;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.model.User;
@@ -139,19 +139,19 @@ public class BookingServiceImpl implements BookingService {
         return bookingMapper.toBookingDto(bookingList);
     }
 
-    private Booking validateFindBookingById(Long id) {
+    public Booking validateFindBookingById(Long id) {
         return bookingRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Не найдено бронирование %d", id)));
     }
 
-    private void validationCreateBooking(User user, Item item, Booking booking) {
+    public void validationCreateBooking(User user, Item item, Booking booking) {
         if (!item.getAvailable()) {
-            throw new NotValidRequestException("Объект недоступен");
+            throw new NotValidRequestException("Объект не доступен");
         }
         if (!booking.getStartDate().isBefore(booking.getEndDate())) {
             throw new NotValidRequestException("Дата окончания должна быть больше даты начала");
         }
         if (item.getOwner().getId().equals(user.getId())) {
-            throw new NotFoundException("Объект недоступен");
+            throw new NotFoundException("Объект не доступен");
         }
         if (!bookingRepository.findAllIntersectionTime(item.getId(), booking.getStartDate(), booking.getEndDate()).isEmpty()) {
             throw new NotFoundException("Объект не найден");

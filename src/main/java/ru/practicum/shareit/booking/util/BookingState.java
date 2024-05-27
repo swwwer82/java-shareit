@@ -1,6 +1,6 @@
 package ru.practicum.shareit.booking.util;
 
-import ru.practicum.shareit.exceptions.exception.NoSuchEnumException;
+import ru.practicum.shareit.exception.exeption.NoSuchEnumException;
 
 public enum BookingState {
     ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED;

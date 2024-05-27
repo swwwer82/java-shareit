@@ -1,15 +1,16 @@
-package ru.practicum.shareit.user.service;
+package ru.practicum.shareit.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.shareit.exceptions.exception.NotFoundException;
+import ru.practicum.shareit.exception.exeption.NotFoundException;
 import ru.practicum.shareit.user.dto.UserCreateDto;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdateDto;
 import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
+import ru.practicum.shareit.user.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;

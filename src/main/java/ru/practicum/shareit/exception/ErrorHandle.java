@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exceptions;
+package ru.practicum.shareit.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -7,14 +7,14 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareit.exceptions.exception.NoSuchEnumException;
-import ru.practicum.shareit.exceptions.exception.NotFoundException;
-import ru.practicum.shareit.exceptions.exception.NotValidRequestException;
-import ru.practicum.shareit.exceptions.model.ErrorResponse;
+import ru.practicum.shareit.exception.exeption.NoSuchEnumException;
+import ru.practicum.shareit.exception.exeption.NotFoundException;
+import ru.practicum.shareit.exception.exeption.NotValidRequestException;
+import ru.practicum.shareit.exception.model.ErrorResponse;
 
 @RestControllerAdvice
 @Slf4j
-public class ErrorHandler {
+public class ErrorHandle {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)

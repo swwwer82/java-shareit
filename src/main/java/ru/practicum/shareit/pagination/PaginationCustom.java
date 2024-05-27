@@ -1,9 +1,8 @@
 package ru.practicum.shareit.pagination;
 
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import ru.practicum.shareit.exceptions.exception.NotValidRequestException;
+import ru.practicum.shareit.exception.exeption.NotValidRequestException;
 
 public class PaginationCustom {
 

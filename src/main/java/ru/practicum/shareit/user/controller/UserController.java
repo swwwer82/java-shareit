@@ -18,36 +18,40 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+    final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll() {
         log.info("Получить всех пользователей");
-        return ResponseEntity.ok(userService.getAll());
+        List<UserDto> users = userService.getAll();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> get(@PathVariable("id") long userId) {
-        log.info("Получить пользователя по id {}", userId);
-        return ResponseEntity.ok(userService.get(userId));
+        log.info("Получить пользователя с Id {}", userId);
+        UserDto user = userService.get(userId);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping
     public ResponseEntity<UserDto> create(@Valid @RequestBody UserCreateDto user) {
         log.info("Создать пользователя {}", user);
-        return ResponseEntity.ok(userService.create(user));
+        UserDto createdUser = userService.create(user);
+        return ResponseEntity.ok(createdUser);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserDto> update(@PathVariable("id") long userId,
                                           @Valid @RequestBody UserUpdateDto user) {
         log.info("Обновить пользователя {}, данные {}", user, user);
-        return ResponseEntity.ok(userService.update(userId, user));
+        UserDto updatedUser = userService.update(userId, user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") long userId) {
-        log.info("Удалить пользователя id {}", userId);
+        log.info("Удалить пользователя с Id {}", userId);
         userService.delete(userId);
         return ResponseEntity.noContent().build();
     }

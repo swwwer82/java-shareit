@@ -14,5 +14,4 @@ public interface UserMapper {
     User toUser(Long userId, UserUpdateDto userUpdateDto);
 
     UserDto toUserDto(User user);
-
 }
