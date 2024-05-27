@@ -33,7 +33,7 @@ public class BookingController {
     @PatchMapping("{bookingId}")
     public ResponseEntity<BookingDto> approveBooking(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                      @PathVariable Long bookingId,
-                                                     @RequestParam boolean approved) {
+                                                     @RequestParam Boolean approved) {
         log.info("Пользователь {} изменил  подтвержение {} бронирования {}", userId, approved, bookingId);
         BookingDto bookingDto = bookingService.approveBooking(userId, bookingId, approved);
         return ResponseEntity.ok(bookingDto);
