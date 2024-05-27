@@ -28,8 +28,6 @@ public interface BookingMapper {
 
     List<BookingDto> toBookingDto(List<Booking> bookings);
 
-    @Mapping(target = "bookerId", source = "booker.id")
+    @Mapping(source = "booker.id", target = "bookerId")
     BookingItemDto toBookingItemDto(Booking booking);
-
-    List<BookingItemDto> toBookingItemDto(List<Booking> bookings);
 }
