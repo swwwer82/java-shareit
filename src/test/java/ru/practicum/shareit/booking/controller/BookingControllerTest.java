@@ -1,14 +1,11 @@
 package ru.practicum.shareit.booking.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -200,21 +197,5 @@ class BookingControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
-    }
-
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testCreate2() throws Exception {
-        BookingCreateDto bookingCreateDto = new BookingCreateDto();
-        bookingCreateDto.setEnd(LocalDate.of(1970, 1, 1).atStartOfDay());
-        bookingCreateDto.setItemId(1L);
-        bookingCreateDto.setStart(LocalDate.of(1970, 1, 1).atStartOfDay());
-        String content = (new ObjectMapper()).writeValueAsString(bookingCreateDto);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/bookings")
-                .header("X-Sharer-User-Id", "42")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
-
-        MockMvcBuilders.standaloneSetup(bookingController).build().perform(requestBuilder);
     }
 }
