@@ -1,14 +1,15 @@
 package ru.practicum.shareit.item.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.booking.util.BookingStatus;
-import ru.practicum.shareit.exceptions.exception.NotFoundException;
-import ru.practicum.shareit.exceptions.exception.NotValidRequestException;
+import ru.practicum.shareit.exception.exeption.NotFoundException;
+import ru.practicum.shareit.exception.exeption.NotValidRequestException;
 import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.item.mapper.CommentMapper;
 import ru.practicum.shareit.item.mapper.ItemMapper;
@@ -16,6 +17,7 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
+import ru.practicum.shareit.request.service.RequestService;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -33,6 +35,7 @@ public class ItemServiceImpl implements ItemService {
     private final BookingMapper bookingMapper;
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
+    private final RequestService requestService;
 
     @Override
     public ItemDto get(Long itemId, Long userId) {
@@ -61,9 +64,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAll(Long userId) {
+    public List<ItemDto> getAll(Long userId, Pageable pageable) {
 
-        Map<Long, ItemDto> itemMap = new HashMap<>(itemRepository.findAllByOwnerId(userId).stream()
+        Map<Long, ItemDto> itemMap = new HashMap<>(itemRepository.findAllByOwnerId(userId, pageable).stream()
                 .map(itemMapper::toItemDto)
                 .collect(Collectors.toMap(ItemDto::getId, itemDto -> itemDto)));
 
@@ -98,6 +101,10 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemMapper.toItem(itemCreateDto);
         item.setOwner(user);
 
+        if (itemCreateDto.getRequestId() != null) {
+            item.setRequest(requestService.validateFindRequestById(itemCreateDto.getRequestId()));
+        }
+
         return itemMapper.toItemDto(itemRepository.save(item));
     }
 
@@ -124,12 +131,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> search(String text) {
+    public List<ItemDto> search(String text, Pageable pageable) {
         if (text.isBlank()) {
             return new ArrayList<>();
         }
 
-        return itemRepository.search(text).stream()
+        return itemRepository.search(text, pageable).stream()
                 .map(itemMapper::toItemDto)
                 .collect(Collectors.toList());
     }
@@ -158,7 +165,7 @@ public class ItemServiceImpl implements ItemService {
                 userId, itemId, BookingStatus.APPROVED);
 
         if (bookings.isEmpty()) {
-            throw new NotValidRequestException("Объект недоступен");
+            throw new NotValidRequestException("Объект не доступен");
         }
 
         Comment comment = commentRepository.save(commentMapper.toComment(userId, itemId, commentCreateDto));

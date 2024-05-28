@@ -14,14 +14,10 @@ public class BookingCreateDto {
     @Positive
     @NotNull
     private Long itemId;
-
     @FutureOrPresent
     @NotNull
     private LocalDateTime start;
-
     @FutureOrPresent
     @NotNull
     private LocalDateTime end;
-
-
 }

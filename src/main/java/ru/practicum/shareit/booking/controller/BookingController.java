@@ -8,9 +8,11 @@ import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.booking.util.BookingState;
+import ru.practicum.shareit.pagination.PaginationCustom;
 
 import javax.validation.Valid;
 import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -23,36 +25,47 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<BookingDto> create(@RequestHeader("X-Sharer-User-Id") Long userId,
                                              @Valid @RequestBody BookingCreateDto bookingCreateDto) {
-        log.info("Создаем бронировоание {}, userid {}", bookingCreateDto, userId);
-        return ResponseEntity.ok(bookingService.create(userId, bookingCreateDto));
+        log.info("Создание бронирования {}, Id пользователя {}", bookingCreateDto, userId);
+        BookingDto bookingDto = bookingService.create(userId, bookingCreateDto);
+        return ResponseEntity.ok(bookingDto);
     }
 
     @PatchMapping("{bookingId}")
     public ResponseEntity<BookingDto> approveBooking(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                      @PathVariable Long bookingId,
                                                      @RequestParam Boolean approved) {
-        log.info("Пользователь {} изменил подтверждение {} бронирования {}", userId, approved, bookingId);
-        return ResponseEntity.ok(bookingService.approveBooking(userId, bookingId, approved));
+        log.info("Пользователь {} изменил  подтвержение {} бронирования {}", userId, approved, bookingId);
+        BookingDto bookingDto = bookingService.approveBooking(userId, bookingId, approved);
+        return ResponseEntity.ok(bookingDto);
     }
 
     @GetMapping("{bookingId}")
     public ResponseEntity<BookingDto> get(@RequestHeader("X-Sharer-User-Id") Long userId,
                                           @PathVariable Long bookingId) {
-        log.info("Получение списка бронирований {} пользователя {}", bookingId, userId);
-        return ResponseEntity.ok(bookingService.getById(userId, bookingId));
+        log.info("Получение бронирования {} пользователя {}", bookingId, userId);
+        BookingDto bookingDto = bookingService.getById(userId, bookingId);
+        return ResponseEntity.ok(bookingDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BookingDto>> getAll(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                                   @RequestParam(defaultValue = "all") String state) {
-        log.info("Получение всего списка бронирований {}, состояние бронирования {}", userId, state);
-        return ResponseEntity.ok(bookingService.getAll(userId, BookingState.fromStringIgnoreCase(state), false));
+                                                   @RequestParam(defaultValue = "all") String state,
+                                                   @RequestParam(value = "from", defaultValue = "0") int fromIndex,
+                                                   @RequestParam(value = "size", defaultValue = "10") int size) {
+        log.info("Получить все бронирования бронировщика {}, состояние {}", userId, state);
+        List<BookingDto> bookingDtos = bookingService.getAll(userId, BookingState.fromStringIgnoreCase(state), false,
+                PaginationCustom.getPageableFromIndex(fromIndex, size));
+        return ResponseEntity.ok(bookingDtos);
     }
 
     @GetMapping("/owner")
     public ResponseEntity<List<BookingDto>> getAllOwner(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                                        @RequestParam(defaultValue = "all") String state) {
-        log.info("Получение списка вбронирований сладельца {}, состояние бронирования {}", userId, state);
-        return ResponseEntity.ok(bookingService.getAll(userId, BookingState.fromStringIgnoreCase(state), true));
+                                                        @RequestParam(defaultValue = "all") String state,
+                                                        @RequestParam(value = "from", defaultValue = "0") int fromIndex,
+                                                        @RequestParam(value = "size", defaultValue = "10") int size) {
+        log.info("Получить все бронирования владельца {}, состояние {}", userId, state);
+        List<BookingDto> bookingDtos = bookingService.getAll(userId, BookingState.fromStringIgnoreCase(state), true,
+                PaginationCustom.getPageableFromIndex(fromIndex, size));
+        return ResponseEntity.ok(bookingDtos);
     }
 }

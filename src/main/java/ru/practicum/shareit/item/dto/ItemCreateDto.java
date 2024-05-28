@@ -1,11 +1,13 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 public class ItemCreateDto {
     @NotBlank(message = "Наименование не может быть пустым")
     private String name;
@@ -13,4 +15,5 @@ public class ItemCreateDto {
     private String description;
     @NotNull(message = "Статус объекта не может быть пустым")
     private Boolean available;
+    private Long requestId;
 }
