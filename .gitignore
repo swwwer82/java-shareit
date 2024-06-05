@@ -1,14 +1,4 @@
-*.class
-*.log
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-hs_err_pid*
-out/
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -42,5 +32,11 @@ build/
 ### VS Code ###
 .vscode/
 
-*.db
-db/*
+# Ignore all .class files
+*.class
+
+# Ignore all .jar files
+*.jar
+
+# Ignore all .DS_Store files
+*.DS_Store
